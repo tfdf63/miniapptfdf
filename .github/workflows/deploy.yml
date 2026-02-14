@@ -26,15 +26,16 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.BEGET_SSH_KEY }}
+
       - name: Deploy to Beget
-        env:
-          SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          # Копируем все файлы из out
-          scp -r dist/ tfdf63_tfdf@tfdf63.beget.tech:
-          # Копируем .htaccess для правильной маршрутизации
-          scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:
+          REMOTE_DIR="tfdf.ru"
+          ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech "mkdir -p $REMOTE_DIR"
+          rsync -avz --delete --omit-dir-times -e "ssh -o StrictHostKeyChecking=accept-new" \
+            dist/ tfdf63_tfdf@tfdf63.beget.tech:$REMOTE_DIR/
+          scp -o StrictHostKeyChecking=accept-new .htaccess tfdf63_tfdf@tfdf63.beget.tech:$REMOTE_DIR/
