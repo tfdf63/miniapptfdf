@@ -1,4 +1,5 @@
-# Deploy to Beget по SSH
+# Deploy to Beget по SSH (при push в main).
+# Куда кладём: папка tfdf.ru на сервере (REMOTE_DIR ниже). Если нужна tfdf.ru/public_html — поменяйте REMOTE_DIR.
 
 name: Deploy to Beget
 
