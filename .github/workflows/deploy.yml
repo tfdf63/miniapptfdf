@@ -40,6 +40,15 @@ jobs:
         run: npm run build
         working-directory: ${{ steps.appdir.outputs.dir }}
 
+      - name: Write build id (для проверки деплоя)
+        working-directory: ${{ steps.appdir.outputs.dir }}
+        run: |
+          echo "commit=${{ github.sha }}" > dist/version.txt
+          echo "run=${{ github.run_id }}" >> dist/version.txt
+          echo "time=$(date -Iseconds)" >> dist/version.txt
+          echo "--- Содержимое dist перед деплоем ---"
+          ls -la dist/
+
       - name: Require SSH secret
         run: |
           if [ -z "$BEGET_SSH_KEY" ]; then
@@ -60,8 +69,13 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
+          SOURCE="$GITHUB_WORKSPACE/$APP_DIR/dist/"
+          echo "Деплой из: $SOURCE"
+          echo "Коммит: ${{ github.sha }}"
           # Синхронизация с удалением старых файлов (новый билд = чистый public_html)
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=accept-new" \
-            "$GITHUB_WORKSPACE/$APP_DIR/dist/" \
+            "$SOURCE" \
             tfdf63_tfdf@tfdf63.beget.tech:public_html/
           scp "$GITHUB_WORKSPACE/$APP_DIR/.htaccess" tfdf63_tfdf@tfdf63.beget.tech:public_html/
+          echo "Проверка на сервере:"
+          ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech "cat public_html/version.txt 2>/dev/null || echo 'version.txt не найден'"
