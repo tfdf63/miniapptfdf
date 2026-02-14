@@ -44,5 +44,5 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          scp -r dist/* tfdf63_tfdf@tfdf63.beget.tech:
+          cd dist && scp -r . tfdf63_tfdf@tfdf63.beget.tech:
           scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:
