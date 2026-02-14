@@ -13,69 +13,28 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Detect app directory
-        id: appdir
-        run: |
-          if [ -f package.json ]; then
-            echo "dir=." >> $GITHUB_OUTPUT
-          elif [ -f app/package.json ]; then
-            echo "dir=app" >> $GITHUB_OUTPUT
-          else
-            echo "::error::package.json not found in root or app/"
-            exit 1
-          fi
+        uses: actions/checkout@v2
 
       - name: Install Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '^19.8.0'
 
       - name: Install dependencies
-        run: npm ci
-        working-directory: ${{ steps.appdir.outputs.dir }}
+        run: npm install
 
       - name: Build project
         run: npm run build
-        working-directory: ${{ steps.appdir.outputs.dir }}
-
-      - name: Write build id (для проверки деплоя)
-        working-directory: ${{ steps.appdir.outputs.dir }}
-        run: |
-          echo "commit=${{ github.sha }}" > dist/version.txt
-          echo "run=${{ github.run_id }}" >> dist/version.txt
-          echo "time=$(date -Iseconds)" >> dist/version.txt
-          echo "--- Содержимое dist перед деплоем ---"
-          ls -la dist/
-
-      - name: Require SSH secret
-        run: |
-          if [ -z "$BEGET_SSH_KEY" ]; then
-            echo "::error::Secret BEGET_SSH_KEY is missing. Add it in Settings → Secrets and variables → Actions (name: BEGET_SSH_KEY, value: full private key from cat ~/.ssh/id_ed25519)"
-            exit 1
-          fi
-        env:
-          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
-
-      - name: Setup SSH key
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.BEGET_SSH_KEY }}
 
       - name: Deploy to Beget
         env:
-          APP_DIR: ${{ steps.appdir.outputs.dir }}
+          SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          SOURCE="$GITHUB_WORKSPACE/$APP_DIR/dist/"
-          echo "Деплой из: $SOURCE"
-          echo "Коммит: ${{ github.sha }}"
-          # Синхронизация с удалением старых файлов (новый билд = чистый public_html)
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=accept-new" \
-            "$SOURCE" \
-            tfdf63_tfdf@tfdf63.beget.tech:public_html/
-          scp "$GITHUB_WORKSPACE/$APP_DIR/.htaccess" tfdf63_tfdf@tfdf63.beget.tech:public_html/
-          echo "Проверка на сервере:"
-          ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech "cat public_html/version.txt 2>/dev/null || echo 'version.txt не найден'"
+          # Копируем все файлы из out
+          scp -r out/* tfdf63_tfdf@tfdf63.beget.tech:
+          # Копируем .htaccess для правильной маршрутизации
+          scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:
