@@ -1,0 +1,4 @@
+export { Home } from './Home'
+export { About } from './About'
+export { Donate } from './Donate'
+export { Community } from './Community'
