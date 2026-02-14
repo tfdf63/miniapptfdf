@@ -1,8 +1,16 @@
 export function Home() {
-  return (
-    <section className="p-4">
-      <h1 className="text-2xl font-bold">TFDF</h1>
-      <p className="mt-2 text-muted-foreground">Кратко о проекте и целях эндаумент-фонда.</p>
-    </section>
-  )
+	return (
+		<section className='p-4'>
+			<h1 className='text-2xl font-bold'>Федерация флаинг диска Тольятти</h1>
+			<div className='mt-4 space-y-3 text-muted-foreground'>
+				<h2 className='text-lg font-semibold text-foreground'>Кто я</h2>
+				<p>
+					Мы — Федерация флаинг диска Тольятти (TFDF). Развиваем алтимат и диск-гольф в городе и в России: тренировки, лагеря, соревнования и сообщество игроков всех возрастов.
+				</p>
+				<p>
+					Собранные донаты формируют эндаумент-фонд: средства идут на устойчивое развитие спорта — команды, тренеров, инфраструктуру и парк диск-гольфа. Ваша поддержка помогает строить долгосрочную базу для флаинг диска в регионе.
+				</p>
+			</div>
+		</section>
+	)
 }
