@@ -35,7 +35,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
           # Сборка кладётся прямо в папку tfdf.ru (корень сайта на Beget)
-          REMOTE_DIR="tfdf.ru"
+          REMOTE_DIR="*"
           ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech "mkdir -p $REMOTE_DIR"
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=accept-new" \
             dist/ tfdf63_tfdf@tfdf63.beget.tech:$REMOTE_DIR/
