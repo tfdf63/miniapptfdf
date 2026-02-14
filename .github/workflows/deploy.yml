@@ -34,9 +34,7 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          # Каталог сайта на Beget: tfdf.ru/public_html
-          REMOTE_DIR="tfdf.ru/public_html"
-          ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech "mkdir -p $REMOTE_DIR"
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=accept-new" \
-            dist/ tfdf63_tfdf@tfdf63.beget.tech:$REMOTE_DIR/
-          scp -o StrictHostKeyChecking=accept-new .htaccess tfdf63_tfdf@tfdf63.beget.tech:$REMOTE_DIR/
+          # Копируем все файлы из dist
+          scp -r dist/* tfdf63_tfdf@tfdf63.beget.tech:
+          # Копируем .htaccess для правильной маршрутизации
+          scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:
