@@ -35,6 +35,6 @@ jobs:
       - name: Deploy to Beget
         run: |
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          rsync -avz --delete --omit-dir-times -e "ssh -o StrictHostKeyChecking=accept-new" \
+          rsync -avz --delete --omit-dir-times --filter='P .ssh/' -e "ssh -o StrictHostKeyChecking=accept-new" \
             dist/ tfdf63_tfdf@tfdf63.beget.tech:./
           scp -o StrictHostKeyChecking=accept-new .htaccess tfdf63_tfdf@tfdf63.beget.tech:./
