@@ -34,7 +34,7 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech "mkdir -p $REMOTE_DIR"
+          ssh -o StrictHostKeyChecking=accept-new tfdf63_tfdf@tfdf63.beget.tech 
           rsync -avz --delete -e "ssh -o StrictHostKeyChecking=accept-new" \
             dist/ tfdf63_tfdf@tfdf63.beget.tech:
           scp -o StrictHostKeyChecking=accept-new .htaccess tfdf63_tfdf@tfdf63.beget.tech:
