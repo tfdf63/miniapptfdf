@@ -26,6 +26,15 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Require SSH secret
+        run: |
+          if [ -z "$BEGET_SSH_KEY" ]; then
+            echo "::error::Secret BEGET_SSH_KEY is missing. Add it in Settings → Secrets and variables → Actions (name: BEGET_SSH_KEY, value: full private key from cat ~/.ssh/id_ed25519)"
+            exit 1
+          fi
+        env:
+          BEGET_SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
+
       - name: Setup SSH key
         uses: webfactory/ssh-agent@v0.9.0
         with:
