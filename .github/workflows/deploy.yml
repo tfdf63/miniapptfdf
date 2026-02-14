@@ -34,7 +34,7 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          # Копируем все файлы из out
-          scp -r out/* tfdf63_tfdf@tfdf63.beget.tech:
+          # Копируем сборку из dist (Vite по умолчанию собирает в dist)
+          scp -r dist/* tfdf63_tfdf@tfdf63.beget.tech:public_html/
           # Копируем .htaccess для правильной маршрутизации
-          scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:
+          scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:public_html/
