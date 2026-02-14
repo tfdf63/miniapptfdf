@@ -26,17 +26,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.BEGET_SSH_KEY }}
+
       - name: Deploy to Beget
-        env:
-          SSH_KEY_B64: ${{ secrets.BEGET_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY_B64" | tr -d ' \n\r\t' > /tmp/key.b64
-          base64 -d /tmp/key.b64 > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          rm -f /tmp/key.b64
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          # Копируем собранную статику из dist
           scp -r dist/* tfdf63_tfdf@tfdf63.beget.tech:
-          # Копируем .htaccess для правильной маршрутизации
           scp .htaccess tfdf63_tfdf@tfdf63.beget.tech:
