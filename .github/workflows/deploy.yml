@@ -1,4 +1,5 @@
 # Deploy to Beget по SSH
+# Секрет BEGET_SSH_KEY: приватный ключ в base64 (см. README или комментарии ниже)
 
 name: Deploy to Beget
 
@@ -28,10 +29,10 @@ jobs:
 
       - name: Deploy to Beget
         env:
-          SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
+          SSH_KEY_B64: ${{ secrets.BEGET_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
+          echo "$SSH_KEY_B64" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
           # Копируем собранную статику из dist
