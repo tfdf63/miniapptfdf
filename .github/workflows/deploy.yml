@@ -15,6 +15,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Detect app directory
+        id: appdir
+        run: |
+          if [ -f package.json ]; then
+            echo "dir=." >> $GITHUB_OUTPUT
+          elif [ -f app/package.json ]; then
+            echo "dir=app" >> $GITHUB_OUTPUT
+          else
+            echo "::error::package.json not found in root or app/"
+            exit 1
+          fi
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
@@ -22,9 +34,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: ${{ steps.appdir.outputs.dir }}
 
       - name: Build project
         run: npm run build
+        working-directory: ${{ steps.appdir.outputs.dir }}
 
       - name: Require SSH secret
         run: |
@@ -41,8 +55,13 @@ jobs:
           ssh-private-key: ${{ secrets.BEGET_SSH_KEY }}
 
       - name: Deploy to Beget
+        env:
+          APP_DIR: ${{ steps.appdir.outputs.dir }}
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
-          cd dist && scp -r . tfdf63_tfdf@tfdf63.beget.tech:public_html
-          scp "$GITHUB_WORKSPACE/.htaccess" tfdf63_tfdf@tfdf63.beget.tech:public_html/
+          # Синхронизация с удалением старых файлов (новый билд = чистый public_html)
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=accept-new" \
+            "$GITHUB_WORKSPACE/$APP_DIR/dist/" \
+            tfdf63_tfdf@tfdf63.beget.tech:public_html/
+          scp "$GITHUB_WORKSPACE/$APP_DIR/.htaccess" tfdf63_tfdf@tfdf63.beget.tech:public_html/
