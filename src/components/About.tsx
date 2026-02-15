@@ -1,39 +1,51 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+const goals = [
+	{
+		title: 'Команды и вертикаль',
+		description:
+			'Тренировки для 54 команд разных возрастов и пола: детские, юниорские, взрослые, женские, мужские и микст.',
+	},
+	{
+		title: 'Люди',
+		description: 'Тренерский штаб, STAFF, организация соревнований и лагерей.',
+	},
+	{
+		title: 'Площадки',
+		description:
+			'Игровые поля (летом - улица, зимой - зал). Зал силовой и кондиционной подготовки.',
+	},
+	{
+		title: 'Диск-гольф',
+		description:
+			'Парк на 18 корзин в Тольятти с вариативными траекториями: конфигурации отрезков можно менять (переставляемые корзины), чтобы разнообразить маршруты и тренировки.',
+	},
+]
 
 export function About() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Цели эндаумента</CardTitle>
-        <CardDescription>
-          На что направляются средства эндаумент-фонда
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-3 text-muted-foreground">
-          Средства эндаумент-фонда направляются на развитие флаинг диска по четырём направлениям:
-        </p>
-        <ul className="space-y-2 text-muted-foreground list-disc list-inside">
-          <li>
-            <strong className="text-foreground">Команды и вертикаль</strong> — тренировки для 54 команд разных возрастов и пола: детские, юниорские, взрослые, женские, мужские и микст.
-          </li>
-          <li>
-            <strong className="text-foreground">Люди</strong> — тренерский штаб, STAFF, организация соревнований и лагерей.
-          </li>
-          <li>
-            <strong className="text-foreground">Территория</strong> — открытое игровое поле, зал, зал силовой и кондиционной подготовки.
-          </li>
-          <li>
-            <strong className="text-foreground">Диск-гольф</strong> — парк на 18 корзин в Тольятти с вариативными траекториями: конфигурации отрезков можно менять (переставляемые корзины), чтобы разнообразить маршруты и тренировки.
-          </li>
-        </ul>
-      </CardContent>
-    </Card>
-  )
+	return (
+		<section className='space-y-6'>
+			<div className='space-y-1'>
+				<h2 className='text-2xl font-semibold tracking-tight'>Цели:</h2>
+				<p className='pt-2 text-muted-foreground'>
+					Средства направляются на развитие флаинг диска по четырём
+					направлениям:
+				</p>
+			</div>
+			<div className='grid gap-4 sm:grid-cols-2'>
+				{goals.map(goal => (
+					<Card key={goal.title}>
+						<CardHeader className='pb-2'>
+							<CardTitle className='text-lg'>{goal.title}</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<p className='text-sm text-muted-foreground'>
+								{goal.description}
+							</p>
+						</CardContent>
+					</Card>
+				))}
+			</div>
+		</section>
+	)
 }
