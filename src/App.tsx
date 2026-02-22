@@ -1,4 +1,4 @@
-import { Home } from './components'
+import { Home, Footer } from './components'
 
 function App() {
 	return (
@@ -8,6 +8,7 @@ function App() {
 				<div id='about'>{/* <About /> */}</div>
 				{/* <Donate />
         <Community /> */}
+				<Footer />
 			</div>
 		</main>
 	)

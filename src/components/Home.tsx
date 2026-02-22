@@ -9,13 +9,25 @@ export function Home() {
 					Федерация флаинг диска Тольятти
 				</h1>
 				<p className='text-lg text-muted-foreground md:text-xl'>
-					Развиваем алтимат и диск-гольф в городе и регионе.
+					Развиваем алтимат и{'\u00A0'}диск-гольф в{'\u00A0'}городе и{'\u00A0'}
+					регионе.
 				</p>
 				<p className='text-lg text-muted-foreground md:text-xl'>
-					Ваша поддержка помогает строить долгосрочную базу для флаинг диска.
+					Ваша поддержка помогает строить долгосрочную базу для{'\u00A0'}флаинг
+					диска.
 				</p>
 			</div>
-			<div className='flex flex-wrap items-center justify-center gap-3'>
+			<div className='flex max-w-[600px] flex-col gap-4'>
+				<p className='text-lg font-medium text-foreground md:text-xl'>
+					Скоро сезон 2026 — тренировки, турниры и{'\u00A0'}диск-гольф ждут.
+				</p>
+				<p className='text-lg text-muted-foreground md:text-xl'>
+					Присоединяйтесь к{'\u00A0'}сообществу: общение, анонсы и{'\u00A0'}
+					поддержка. Будем рады видеть вас на{'\u00A0'}
+					поле.
+				</p>
+			</div>
+			{/* <div className='flex flex-wrap items-center justify-center gap-3'>
 				<Button asChild size='lg'>
 					<a
 						href={config.communityLink}
@@ -28,7 +40,8 @@ export function Home() {
 				<Button asChild variant='outline' size='lg'>
 					<a href='#about'>Цели</a>
 				</Button>
-			</div>
+			</div> */}
+			{/* Ссылки на соц. сети */}
 		</section>
 	)
 }
