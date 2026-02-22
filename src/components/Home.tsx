@@ -1,6 +1,3 @@
-import { Button } from '@/components/ui/button'
-import { config } from '@/config'
-
 export function Home() {
 	return (
 		<section className='flex flex-col items-center gap-8 py-12 text-center md:py-16'>
