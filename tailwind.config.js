@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ['Unbounded', 'Exo 2', 'sans-serif'],
+        sans: ['Exo 2', 'sans-serif'],
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -46,6 +50,15 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        neon: {
+          cyan: 'hsl(var(--neon-cyan))',
+          magenta: 'hsl(var(--neon-magenta))',
+        },
+      },
+      boxShadow: {
+        'neon-sm': '0 0 12px hsl(var(--primary) / 0.35)',
+        'neon-md': '0 0 24px hsl(var(--primary) / 0.4), 0 0 48px hsl(var(--primary) / 0.15)',
+        'neon-lg': '0 0 32px hsl(var(--primary) / 0.5), 0 0 64px hsl(var(--accent) / 0.2)',
       },
     },
   },

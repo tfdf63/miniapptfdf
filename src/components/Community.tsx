@@ -1,39 +1,57 @@
 import { config } from '@/config'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import {
+	GlassCard,
+	GlassCardContent,
+} from '@/components/ui/glass-card'
+
+const steps = [
+	{
+		step: '01',
+		title: 'Выберите дисциплину',
+		text: 'Алтимат — командные тренировки. Диск-гольф — парк «H3» и соревнования.',
+	},
+	{
+		step: '02',
+		title: 'Напишите в Telegram',
+		text: 'Расскажем расписание, место встречи и что взять с собой на первую тренировку.',
+	},
+	{
+		step: '03',
+		title: 'Приходите играть',
+		text: 'Первая тренировка или игра в парке — лучший способ познакомиться с сообществом.',
+	},
+] as const
 
 export function Community() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Как присоединиться</CardTitle>
-        <CardDescription>
-          Сообщество в Telegram
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="text-muted-foreground">
-          Присоединяйтесь к сообществу Федерации флаинг диска в Telegram: там анонсы тренировок, лагерей и турниров, обсуждения и ответы на вопросы. Один тап — и вы в чате.
-        </p>
-      </CardContent>
-      <CardFooter>
-        <Button asChild>
-          <a
-            href={config.communityLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Перейти в группу Telegram
-          </a>
-        </Button>
-      </CardFooter>
-    </Card>
-  )
+	return (
+		<div className="space-y-6">
+			<div className="grid gap-4 md:grid-cols-3">
+				{steps.map(({ step, title, text }) => (
+					<GlassCard key={step} glow className="relative overflow-hidden">
+						<GlassCardContent className="space-y-3 pt-6">
+							<span className="text-primary font-display text-3xl font-bold opacity-40">
+								{step}
+							</span>
+							<h3 className="font-display text-lg font-semibold">{title}</h3>
+							<p className="text-muted-foreground text-sm leading-relaxed">{text}</p>
+						</GlassCardContent>
+					</GlassCard>
+				))}
+			</div>
+			<GlassCard featured>
+				<GlassCardContent className="flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
+					<p className="text-muted-foreground text-sm leading-relaxed">
+						Присоединяйтесь к сообществу ФФДТ в Telegram: анонсы тренировок,
+						турниров и ответы на вопросы.
+					</p>
+					<Button asChild variant="neon" className="min-h-[44px] shrink-0">
+						<a href={config.communityLink} target="_blank" rel="noopener noreferrer">
+							Перейти в группу
+						</a>
+					</Button>
+				</GlassCardContent>
+			</GlassCard>
+		</div>
+	)
 }

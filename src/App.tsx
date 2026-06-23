@@ -1,17 +1,23 @@
-import { Home, Footer } from './components'
+import { Routes, Route } from 'react-router-dom'
+import { SiteLayout } from '@/components/SiteLayout'
+import { HomePage } from '@/pages/HomePage'
+import { EventsListPage } from '@/pages/EventsListPage'
+import { EventPage } from '@/pages/EventPage'
+import { PlayerPage } from '@/pages/PlayerPage'
+import { StagePage } from '@/pages/StagePage'
 
 function App() {
-	return (
-		<main className='min-h-screen scroll-smooth bg-background'>
-			<div className='container mx-auto max-w-2xl space-y-6 p-4'>
-				<Home />
-				<div id='about'>{/* <About /> */}</div>
-				{/* <Donate />
-        <Community /> */}
-				<Footer />
-			</div>
-		</main>
-	)
+  return (
+    <Routes>
+      <Route element={<SiteLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/events" element={<EventsListPage />} />
+        <Route path="/events/:slug" element={<EventPage />} />
+        <Route path="/events/:slug/stage/:stageNumber" element={<StagePage />} />
+        <Route path="/events/:slug/player/:userId" element={<PlayerPage />} />
+      </Route>
+    </Routes>
+  )
 }
 
 export default App
