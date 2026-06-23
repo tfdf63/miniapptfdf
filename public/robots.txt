@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /events
+Disallow: /players
+Sitemap: https://tfdf.ru/sitemap.xml

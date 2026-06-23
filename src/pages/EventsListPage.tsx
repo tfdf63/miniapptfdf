@@ -12,6 +12,7 @@ import {
 	GlassCardTitle,
 } from '@/components/ui/glass-card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { PageMeta } from '@/components/seo/PageMeta'
 import type { EventListItem } from '@/types/events'
 
 function typeLabel(type: string) {
@@ -63,7 +64,9 @@ export function EventsListPage() {
   }, [])
 
   return (
-    <PageShell wide>
+    <>
+      <PageMeta noindex title="Соревнования" />
+      <PageShell wide>
       <SectionHeading
         title="Соревнования"
         subtitle="Лиги и турниры диск-гольфа ФФДТ"
@@ -92,5 +95,6 @@ export function EventsListPage() {
 
       <Footer />
     </PageShell>
+    </>
   )
 }

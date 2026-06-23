@@ -77,7 +77,7 @@ export function HeroSection() {
 				<div className='hero-copy flex w-full flex-col items-start gap-5 text-left md:gap-7 lg:gap-8'>
 					<div className='hero-badge'>
 						<span className='hero-badge-dot' aria-hidden />
-						Ближайшие тренировки · Telegram
+						Тренируйтесь, играйте и будьте в форме!
 					</div>
 
 					<h1 id='hero-heading' className='hero-heading font-display w-full'>

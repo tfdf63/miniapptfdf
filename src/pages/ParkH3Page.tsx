@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { AlternatingMediaBlock } from '@/components/park/AlternatingMediaBlock'
 import { Footer } from '@/components/Footer'
 import { PageShell } from '@/components/layout/PageShell'
+import { PageMeta, parkH3LocationJsonLd } from '@/components/seo/PageMeta'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { site } from '@/config/site'
 import {
 	GlassCard,
 	GlassCardContent,
@@ -11,6 +14,8 @@ import { Button } from '@/components/ui/button'
 export function ParkH3Page() {
 	return (
 		<PageShell wide className='scroll-smooth'>
+			<PageMeta page={site.pages.parkH3} />
+			<JsonLd data={parkH3LocationJsonLd()} />
 			<header className='space-y-3'>
 				<Link
 					to='/'

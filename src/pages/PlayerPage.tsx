@@ -14,6 +14,7 @@ import {
 	GlassCardTitle,
 } from '@/components/ui/glass-card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { PageMeta } from '@/components/seo/PageMeta'
 import type { EventStage, PlayerProfile } from '@/types/events'
 
 function formatRatingDate(iso: string | null) {
@@ -51,17 +52,22 @@ export function PlayerPage() {
 
   if (loading) {
     return (
-      <PageShell wide>
+      <>
+        <PageMeta noindex title="Игрок" />
+        <PageShell wide>
         <Skeleton className="glass-panel h-8 w-48 rounded-xl" />
         <Skeleton className="glass-panel h-24 w-full rounded-2xl" />
         <Skeleton className="glass-panel h-48 w-full rounded-2xl" />
       </PageShell>
+      </>
     )
   }
 
   if (error || !profile || !userId || !slug) {
     return (
-      <PageShell wide>
+      <>
+        <PageMeta noindex title="Игрок" />
+        <PageShell wide>
         <Button asChild variant="outline-glass" className="mb-6 min-h-[44px]">
           <Link to={slug ? `/events/${slug}` : '/events'}>← Соревнование</Link>
         </Button>
@@ -74,6 +80,7 @@ export function PlayerPage() {
           </GlassCardContent>
         </GlassCard>
       </PageShell>
+      </>
     )
   }
 
@@ -94,6 +101,7 @@ export function PlayerPage() {
 
   return (
     <>
+      <PageMeta noindex title={profile.name} />
       <PageShell wide>
         <Button asChild variant="ghost-glow" size="sm" className="min-h-[44px] -ml-2">
           <Link to={`/events/${slug}`}>← {eventName ?? 'Соревнование'}</Link>

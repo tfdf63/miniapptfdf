@@ -14,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { StageDivisionTable } from '@/components/league/StageDivisionTable'
 import { holeNumbers } from '@/lib/stage-holes'
 import type { StageDetail } from '@/types/events'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 function formatStageDate(iso: string | null) {
   if (!iso) return '—'
@@ -55,16 +56,21 @@ export function StagePage() {
 
   if (loading) {
     return (
-      <PageShell wide>
+      <>
+        <PageMeta noindex title="Этап" />
+        <PageShell wide>
         <Skeleton className="glass-panel h-8 w-48 rounded-xl" />
         <Skeleton className="glass-panel h-64 w-full rounded-2xl" />
       </PageShell>
+      </>
     )
   }
 
   if (error || !data || !slug) {
     return (
-      <PageShell wide>
+      <>
+        <PageMeta noindex title="Этап" />
+        <PageShell wide>
         <Button asChild variant="outline-glass" className="mb-6 min-h-[44px]">
           <Link to={slug ? `/events/${slug}` : '/events'}>← Соревнование</Link>
         </Button>
@@ -75,6 +81,7 @@ export function StagePage() {
           <GlassCardContent className="text-destructive text-sm">{error}</GlassCardContent>
         </GlassCard>
       </PageShell>
+      </>
     )
   }
 
@@ -85,7 +92,9 @@ export function StagePage() {
   )
 
   return (
-    <PageShell wide>
+    <>
+      <PageMeta noindex title={`Этап ${stage.number}`} />
+      <PageShell wide>
       <Button asChild variant="ghost-glow" size="sm" className="min-h-[44px] -ml-2">
         <Link to={`/events/${slug}`}>← Соревнование</Link>
       </Button>
@@ -169,5 +178,6 @@ export function StagePage() {
 
       <Footer />
     </PageShell>
+    </>
   )
 }

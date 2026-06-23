@@ -14,6 +14,7 @@ import { StageList } from '@/components/league/StageList'
 import { StandingsTable } from '@/components/league/StandingsTable'
 import { StageDivisionTable } from '@/components/league/StageDivisionTable'
 import { holeNumbers } from '@/lib/stage-holes'
+import { PageMeta } from '@/components/seo/PageMeta'
 
 function formatUpdatedAt(iso: string | null) {
   if (!iso) return null
@@ -46,12 +47,15 @@ function BackLink() {
 
 function LoadingState() {
   return (
-    <PageShell wide>
+    <>
+      <PageMeta noindex title="Соревнование" />
+      <PageShell wide>
       <Skeleton className="glass-panel h-10 w-3/4 rounded-xl" />
       <Skeleton className="glass-panel h-6 w-1/2 rounded-xl" />
       <Skeleton className="glass-panel h-32 w-full rounded-2xl" />
       <Skeleton className="glass-panel h-64 w-full rounded-2xl" />
     </PageShell>
+    </>
   )
 }
 
@@ -63,7 +67,9 @@ export function EventPage() {
 
   if (error || !data || !slug) {
     return (
-      <PageShell wide>
+      <>
+        <PageMeta noindex title="Соревнование" />
+        <PageShell wide>
         <Button asChild variant="outline-glass" className="mb-6 min-h-[44px]">
           <Link to="/events">← Все соревнования</Link>
         </Button>
@@ -84,6 +90,7 @@ export function EventPage() {
           </GlassCardContent>
         </GlassCard>
       </PageShell>
+      </>
     )
   }
 
@@ -102,13 +109,15 @@ export function EventPage() {
         : []
 
     return (
-      <PageShell wide className="scroll-smooth">
-        <div className="space-y-3">
-          <BackLink />
-          <h1 className="font-display text-2xl font-bold leading-tight tracking-tight md:text-3xl">
-            <span className="neon-text">{event.name}</span>
-          </h1>
-          {stageInfo && (
+      <>
+        <PageMeta noindex title={event.name} />
+        <PageShell wide className="scroll-smooth">
+          <div className="space-y-3">
+            <BackLink />
+            <h1 className="font-display text-2xl font-bold leading-tight tracking-tight md:text-3xl">
+              <span className="neon-text">{event.name}</span>
+            </h1>
+            {stageInfo && (
             <div className="text-muted-foreground space-y-1 text-sm">
               {stageInfo.date && (
                 <p className="text-foreground tabular-nums">{formatStageDate(stageInfo.date)}</p>
@@ -188,25 +197,31 @@ export function EventPage() {
 
         <Footer />
       </PageShell>
+      </>
     )
   }
 
   if (!standings) {
     return (
-      <PageShell wide>
-        <GlassCard>
-          <GlassCardContent className="text-muted-foreground py-10 text-center text-sm">
-            Не удалось загрузить рейтинг.
-          </GlassCardContent>
-        </GlassCard>
-      </PageShell>
+      <>
+        <PageMeta noindex title={event.name} />
+        <PageShell wide>
+          <GlassCard>
+            <GlassCardContent className="text-muted-foreground py-10 text-center text-sm">
+              Не удалось загрузить рейтинг.
+            </GlassCardContent>
+          </GlassCard>
+        </PageShell>
+      </>
     )
   }
 
   const divisions = standings.divisions
 
   return (
-    <PageShell wide className="scroll-smooth">
+    <>
+      <PageMeta noindex title={event.name} />
+      <PageShell wide className="scroll-smooth">
       <div className="space-y-3">
         <BackLink />
         <h1 className="font-display text-2xl font-bold leading-tight tracking-tight md:text-3xl">
@@ -248,6 +263,7 @@ export function EventPage() {
 
       <Footer />
     </PageShell>
+    </>
   )
 }
 

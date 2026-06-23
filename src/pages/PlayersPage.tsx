@@ -5,6 +5,7 @@ import { PlayerCard } from '@/components/club/PlayerCard'
 import { PageShell } from '@/components/layout/PageShell'
 import { SectionHeading } from '@/components/layout/SectionHeading'
 import { Skeleton } from '@/components/ui/skeleton'
+import { PageMeta } from '@/components/seo/PageMeta'
 import { cn } from '@/lib/utils'
 import type { ClubMember } from '@/types/club'
 
@@ -52,6 +53,7 @@ export function PlayersPage() {
 
   return (
     <>
+      <PageMeta noindex title="Игроки клуба" />
       <PageShell wide>
         <SectionHeading
           title="Игроки клуба"
