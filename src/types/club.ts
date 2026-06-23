@@ -12,5 +12,6 @@ export type ClubMember = {
 export type ClubMembersPayload = {
   clubId: number
   updatedAt: string | null
+  totalCount: number
   members: ClubMember[]
 }

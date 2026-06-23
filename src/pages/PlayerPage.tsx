@@ -104,12 +104,17 @@ export function PlayerPage() {
             <span className="neon-text">{profile.name}</span>
           </h1>
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-            <span>Metrix ID {profile.userId}</span>
+            <a
+              href={profile.metrixProfileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary inline-flex items-center gap-0.5 font-medium hover:underline"
+            >
+              Metrix ID {profile.userId}
+              <span aria-hidden="true">↑</span>
+            </a>
             {profile.division && (
               <Badge variant="secondary">{profile.division}</Badge>
-            )}
-            {profile.nickname && (
-              <span className="text-foreground">@{profile.nickname}</span>
             )}
           </div>
           <div className="flex flex-wrap items-baseline gap-3">
@@ -133,14 +138,6 @@ export function PlayerPage() {
               Рейтинг на {formatRatingDate(profile.ratingCalculatedOn)}
             </p>
           )}
-          <a
-            href={profile.metrixProfileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary text-sm font-medium hover:underline"
-          >
-            Профиль на Metrix →
-          </a>
         </header>
 
         {standing && (

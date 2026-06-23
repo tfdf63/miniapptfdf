@@ -6,6 +6,7 @@ import { EventPage } from '@/pages/EventPage'
 import { PlayerPage } from '@/pages/PlayerPage'
 import { StagePage } from '@/pages/StagePage'
 import { PlayersPage } from '@/pages/PlayersPage'
+import { ParkH3Page } from '@/pages/ParkH3Page'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route element={<SiteLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/players" element={<PlayersPage />} />
+        <Route path="/parkh3" element={<ParkH3Page />} />
         <Route path="/events" element={<EventsListPage />} />
         <Route path="/events/:slug" element={<EventPage />} />
         <Route path="/events/:slug/stage/:stageNumber" element={<StagePage />} />

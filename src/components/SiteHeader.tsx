@@ -1,7 +1,8 @@
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { config } from '@/config'
 import { siteNav, siteTitleShort, type NavItem } from '@/config/nav'
 import { DiscLogoIcon } from '@/components/icons/DiscLogoIcon'
+import { HomeLogoLink } from '@/components/navigation/HomeLogoLink'
 import { ThemeToggle } from '@/components/theme/ThemeToggle'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -45,15 +46,14 @@ export function SiteHeader() {
 	return (
 		<header className="site-header sticky top-0 z-40 hidden md:block">
 			<div className="site-header-inner container mx-auto max-w-6xl px-4">
-				<Link
-					to="/"
+				<HomeLogoLink
 					className="site-header-logo flex min-w-0 items-center gap-3 transition-opacity hover:opacity-90"
 				>
 					<DiscLogoIcon />
 					<span className="font-display truncate text-lg font-bold leading-none tracking-tight">
 						{siteTitleShort}
 					</span>
-				</Link>
+				</HomeLogoLink>
 
 				<nav
 					className="site-header-nav flex items-center gap-8"
@@ -71,7 +71,7 @@ export function SiteHeader() {
 						className="site-header-cta btn-gradient-cyber border-0"
 					>
 						<a
-							href={config.communityLink}
+							href={config.contactLink}
 							target="_blank"
 							rel="noopener noreferrer"
 						>

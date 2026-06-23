@@ -39,19 +39,19 @@ function ParkIcon({ className }: { className?: string }) {
 	)
 }
 
-function ContactsIcon({ className }: { className?: string }) {
+function StartIcon({ className }: { className?: string }) {
 	return (
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-			<path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+			<path d="M5 12h14M12 5l7 7-7 7" />
 		</svg>
 	)
 }
 
 const mobileNavItems = [
 	{ label: 'Главная', to: '/', end: true, Icon: HomeIcon },
-	{ label: 'Лиги', to: '/events', Icon: EventsIcon },
-	{ label: 'H3', to: '/#park-h3', Icon: ParkIcon },
-	{ label: 'Контакты', to: '/#contacts', Icon: ContactsIcon },
+	{ label: 'Турниры', to: '/events', Icon: EventsIcon },
+	{ label: 'Парк H3', to: '/parkh3', end: true, Icon: ParkIcon },
+	{ label: 'Начать', to: '/#join-cta-heading', Icon: StartIcon },
 ] as const
 
 function MobileNavItem({

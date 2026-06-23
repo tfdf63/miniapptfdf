@@ -8,4 +8,6 @@ export const config = {
 	starAmounts: [50, 100, 250] as number[], // Stars
 	communityLink:
 		import.meta.env.VITE_COMMUNITY_LINK ?? 'https://t.me/tfdf63',
+	contactLink:
+		import.meta.env.VITE_CONTACT_TELEGRAM_LINK ?? 'https://t.me/slava_tfdf',
 } as const
