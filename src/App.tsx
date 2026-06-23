@@ -5,12 +5,14 @@ import { EventsListPage } from '@/pages/EventsListPage'
 import { EventPage } from '@/pages/EventPage'
 import { PlayerPage } from '@/pages/PlayerPage'
 import { StagePage } from '@/pages/StagePage'
+import { PlayersPage } from '@/pages/PlayersPage'
 
 function App() {
   return (
     <Routes>
       <Route element={<SiteLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/players" element={<PlayersPage />} />
         <Route path="/events" element={<EventsListPage />} />
         <Route path="/events/:slug" element={<EventPage />} />
         <Route path="/events/:slug/stage/:stageNumber" element={<StagePage />} />

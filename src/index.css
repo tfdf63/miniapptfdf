@@ -412,3 +412,63 @@ body {
 		padding-bottom: 0;
 	}
 }
+
+/* Club player cards (Featured Creators style) */
+.player-card {
+	@apply relative rounded-2xl border border-primary/20 bg-card/80 p-5 backdrop-blur-md transition-all duration-300;
+}
+
+.dark .player-card {
+	@apply border-primary/25 bg-card/50;
+}
+
+.player-card:hover {
+	@apply border-primary/45 shadow-neon-sm;
+	transform: translateY(-2px);
+}
+
+.player-card-rank {
+	@apply absolute right-4 top-4 text-primary/70;
+}
+
+.player-card-avatar-wrap {
+	width: 88px;
+	height: 88px;
+	padding: 3px;
+	border-radius: 9999px;
+	background: linear-gradient(
+		135deg,
+		hsl(var(--neon-magenta)),
+		hsl(var(--neon-cyan))
+	);
+}
+
+.player-card-avatar {
+	@apply flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-card;
+}
+
+.player-card-avatar-fallback {
+	@apply text-primary;
+}
+
+.player-card-name {
+	@apply text-foreground;
+}
+
+.player-card-stat-value {
+	color: hsl(var(--neon-cyan));
+}
+
+.player-cards-scroll {
+	scrollbar-width: thin;
+	scrollbar-color: hsl(var(--primary) / 0.35) transparent;
+}
+
+.player-cards-scroll::-webkit-scrollbar {
+	height: 6px;
+}
+
+.player-cards-scroll::-webkit-scrollbar-thumb {
+	border-radius: 9999px;
+	background: hsl(var(--primary) / 0.35);
+}

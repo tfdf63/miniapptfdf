@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { config } from '@/config'
 import { HeroSection } from '@/components/home/HeroSection'
+import { FeaturedPlayersSection } from '@/components/club/FeaturedPlayersSection'
 import { SectionHeading } from '@/components/layout/SectionHeading'
 import { Community } from '@/components/Community'
 import { Button } from '@/components/ui/button'
@@ -116,6 +117,9 @@ export function Home() {
 					<Community />
 				</div>
 			</section>
+
+			{/* Топ игроков */}
+			<FeaturedPlayersSection />
 
 			{/* Соревнования */}
 			<section

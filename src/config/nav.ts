@@ -7,6 +7,7 @@ export type NavItem = {
 
 export const siteNav: NavItem[] = [
 	{ label: 'Соревнования', to: '/events' },
+	{ label: 'Игроки', to: '/players' },
 	{ label: 'Парк H3', to: '/#park-h3' },
 	{ label: 'Контакты', to: '/#contacts' },
 ]
