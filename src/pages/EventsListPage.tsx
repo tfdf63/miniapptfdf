@@ -87,9 +87,15 @@ export function EventsListPage() {
 
       {!loading && !error && (
         <div className="space-y-4">
-          {events.map((event) => (
-            <EventCard key={event.slug} event={event} />
-          ))}
+          {events.length === 0 ? (
+            <p className="text-muted-foreground py-12 text-center">
+              Скоро здесь появятся турниры
+            </p>
+          ) : (
+            events.map((event) => (
+              <EventCard key={event.slug} event={event} />
+            ))
+          )}
         </div>
       )}
 
