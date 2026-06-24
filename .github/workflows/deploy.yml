@@ -1,5 +1,5 @@
-# Deploy to Beget по SSH (при push в main).
-# Файлы кладём прямо в домашний каталог пользователя (корень сайта на Beget), без вложенной папки tfdf.ru.
+# Deploy to Beget (static frontend).
+# Secrets: BEGET_SSH_KEY, VITE_API_URL, VITE_SITE_URL
 
 name: Deploy to Beget
 
@@ -14,17 +14,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '^19.8.0'
+          node-version: '20'
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
         run: npm run build
 
       - name: Setup SSH key
