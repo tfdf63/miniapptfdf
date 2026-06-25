@@ -161,9 +161,14 @@ export function Home() {
 							Прибрежная лига, Тольяттинская лига и другие соревнования
 							Федерации — результаты синхронизируются с DiscGolfMetrix.
 						</p>
-						<Button asChild variant='neon' size='lg' className='min-h-[44px]'>
-							<Link to='/events'>Все соревнования</Link>
-						</Button>
+						<div className="flex flex-wrap gap-3">
+							<Button asChild variant='neon' size='lg' className='min-h-[44px]'>
+								<Link to='/events'>Все соревнования</Link>
+							</Button>
+							<Button asChild variant='outline-glass' size='lg' className='min-h-[44px]'>
+								<Link to='/bingo'>BINGO</Link>
+							</Button>
+						</div>
 					</GlassCardContent>
 				</GlassCard>
 			</section>

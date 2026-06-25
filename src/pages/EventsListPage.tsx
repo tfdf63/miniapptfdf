@@ -51,6 +51,28 @@ function EventCard({ event }: { event: EventListItem }) {
   )
 }
 
+function BingoCard() {
+  return (
+    <GlassCard glow>
+      <GlassCardHeader>
+        <GlassCardTitle className="font-display text-xl">BINGO</GlassCardTitle>
+        <p className="text-muted-foreground text-sm">
+          Тренировочная игра · фиксированный лейаут · очки за birdie, eagle и эйс
+        </p>
+      </GlassCardHeader>
+      <GlassCardContent>
+        <p className="text-muted-foreground mb-4 text-sm leading-6">
+          Долгосрочное соревнование на мотивацию к качественным тренировкам.
+          Результаты тренировочных раундов в DiscGolfMetrix — в общей таблице BINGO.
+        </p>
+        <Button asChild variant="neon" size="lg" className="min-h-[44px]">
+          <Link to="/bingo">Рейтинг BINGO</Link>
+        </Button>
+      </GlassCardContent>
+    </GlassCard>
+  )
+}
+
 export function EventsListPage() {
   const [events, setEvents] = useState<EventListItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -87,6 +109,7 @@ export function EventsListPage() {
 
       {!loading && !error && (
         <div className="space-y-4">
+          <BingoCard />
           {events.length === 0 ? (
             <p className="text-muted-foreground py-12 text-center">
               Скоро здесь появятся турниры
