@@ -90,7 +90,7 @@ export function EventsListPage() {
       <PageShell wide>
       <SectionHeading
         title="Соревнования"
-        subtitle="Лиги и турниры диск-гольфа ФФДТ"
+        subtitle="Лиги и турниры по диск-гольфу ФФДТ"
       />
 
       {loading && (
