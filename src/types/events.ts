@@ -162,6 +162,7 @@ export interface StageDetail {
     metrixUrl: string
     playerCount: number
     rounds: StageRoundInfo[]
+    synced: boolean
   }
   divisions: StageDivisionResults[]
 }

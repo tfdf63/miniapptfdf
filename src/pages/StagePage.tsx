@@ -102,6 +102,9 @@ export function StagePage() {
       <header className="space-y-2">
         <h1 className="font-display flex min-h-[44px] flex-wrap items-baseline gap-x-2 text-sm sm:text-base">
           <span className="font-bold tracking-tight">Этап {stage.number}</span>
+          {stage.venue && (
+            <span className="text-muted-foreground">{stage.venue}</span>
+          )}
           <span className="text-muted-foreground tabular-nums">
             {formatStageDate(stage.date)}
           </span>
@@ -155,10 +158,20 @@ export function StagePage() {
         )}
       </header>
 
-      {stage.playerCount === 0 ? (
+      {!stage.synced || stage.playerCount === 0 ? (
         <GlassCard>
-          <GlassCardContent className="text-muted-foreground py-10 text-center text-sm">
-            Этап запланирован, но ещё не проведён.
+          <GlassCardContent className="space-y-2 py-10 text-center text-sm">
+            <p className="font-medium">
+              {!stage.synced ? 'Этап ещё не сыгран' : 'Этап запланирован, но ещё не проведён'}
+            </p>
+            {stage.date && (
+              <p className="text-muted-foreground">
+                Запланирован на {formatStageDate(stage.date)}
+              </p>
+            )}
+            <p className="text-muted-foreground">
+              Результаты появятся после проведения и синхронизации с Metrix.
+            </p>
           </GlassCardContent>
         </GlassCard>
       ) : (
