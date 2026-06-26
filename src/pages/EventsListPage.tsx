@@ -62,7 +62,6 @@ function BingoCard() {
       </GlassCardHeader>
       <GlassCardContent>
         <p className="text-muted-foreground mb-4 text-sm leading-6">
-          Долгосрочное соревнование на мотивацию к качественным тренировкам.
           Результаты тренировочных раундов в DiscGolfMetrix — в общей таблице BINGO.
         </p>
         <Button asChild variant="neon" size="lg" className="min-h-[44px]">
