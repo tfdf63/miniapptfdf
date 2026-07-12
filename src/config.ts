@@ -1,8 +1,9 @@
 /**
- * Конфиг Mini App: URL бэкенда, TON-адрес, номиналы донатов
+ * Конфиг Mini App: URL бэкенда, TON-адрес, номиналы донатов.
+ * Прод: VITE_API_URL=/api/v1 (same-origin через Beget api-proxy.php).
  */
 export const config = {
-	apiUrl: import.meta.env.VITE_API_URL ?? '/api/v1',
+	apiUrl: import.meta.env.VITE_API_URL || '/api/v1',
 	tonDonateAddress: import.meta.env.VITE_TON_DONATE_ADDRESS ?? '',
 	tonAmounts: [1, 5, 10] as number[], // TON
 	starAmounts: [50, 100, 250] as number[], // Stars

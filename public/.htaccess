@@ -1,6 +1,9 @@
 RewriteEngine On
 RewriteBase /
 
+# Same-origin API: /api/v1/* → api-proxy.php → https://api.tfdf.ru/api/v1/*
+RewriteRule ^api/v1/(.*)$ api-proxy.php?__path=$1 [QSA,L]
+
 # Если запрашиваемый файл или директория существуют, используем их напрямую
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

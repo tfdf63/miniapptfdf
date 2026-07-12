@@ -1,5 +1,6 @@
 # Deploy to Beget (static frontend).
-# Secrets: BEGET_SSH_KEY, VITE_API_URL, VITE_SITE_URL
+# Secrets: BEGET_SSH_KEY
+# Variables (or Secrets): VITE_API_URL=/api/v1, VITE_SITE_URL=https://tfdf.ru
 
 name: Deploy to Beget
 
@@ -27,8 +28,8 @@ jobs:
 
       - name: Build project
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          VITE_API_URL: ${{ vars.VITE_API_URL || secrets.VITE_API_URL || '/api/v1' }}
+          VITE_SITE_URL: ${{ vars.VITE_SITE_URL || secrets.VITE_SITE_URL || 'https://tfdf.ru' }}
         run: npm run build
 
       - name: Setup SSH key
@@ -39,6 +40,6 @@ jobs:
       - name: Deploy to Beget
         run: |
           ssh-keyscan -H tfdf63.beget.tech >> ~/.ssh/known_hosts
+          # dist includes public/.htaccess + public/api-proxy.php (same-origin /api/v1)
           rsync -avz --delete --omit-dir-times --no-perms --no-owner --no-group --filter='P .ssh/' -e "ssh -o StrictHostKeyChecking=accept-new" \
             dist/ tfdf63_tfdf@tfdf63.beget.tech:./
-          scp -o StrictHostKeyChecking=accept-new .htaccess tfdf63_tfdf@tfdf63.beget.tech:./
