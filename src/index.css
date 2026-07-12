@@ -318,7 +318,6 @@ body {
 		.hero-highlight {
 			@apply bg-none text-foreground;
 		}
-
 	}
 }
 
