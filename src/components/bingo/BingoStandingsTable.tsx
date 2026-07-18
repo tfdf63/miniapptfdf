@@ -22,6 +22,19 @@ function highlightClass(highlight: BingoHoleHighlight): string {
 	}
 }
 
+function sortRoundsNewestFirst(rounds: BingoPlayerRound[]): BingoPlayerRound[] {
+	return [...rounds].sort((a, b) => {
+		const aTime = Date.parse(a.metrixRoundDate)
+		const bTime = Date.parse(b.metrixRoundDate)
+
+		if (Number.isFinite(aTime) && Number.isFinite(bTime) && aTime !== bTime) {
+			return bTime - aTime
+		}
+
+		return b.metrixRoundId - a.metrixRoundId
+	})
+}
+
 function RoundRows({
 	round,
 	holeNumbers,
@@ -102,7 +115,10 @@ export function BingoStandingsTable({
 			setLoadingId(metrixUserId)
 			try {
 				const data = await fetchBingoPlayerRounds(metrixUserId)
-				setRoundsCache(prev => ({ ...prev, [metrixUserId]: data.rounds }))
+				setRoundsCache(prev => ({
+					...prev,
+					[metrixUserId]: sortRoundsNewestFirst(data.rounds),
+				}))
 			} finally {
 				setLoadingId(null)
 			}
