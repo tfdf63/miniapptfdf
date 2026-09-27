@@ -1,3 +1,3 @@
-# miniapptfdf
+# TFDF Web3 — Mini App и эндаумент-фонд
 
-Mini App для tfdf.ru (Vite + React).
+Telegram Mini App для сбора донатов (Stars + TON) и формирования эндаумент-фонда развития диск-гольфа и алтимата.
